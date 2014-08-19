@@ -1,0 +1,464 @@
+/*
+    Inflacionômetro - Simulação do impacto da inflação nos preços
+    Copyright (C) 2014  Estudantes Pela Liberdade
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700,900);
+@import url(http://fonts.googleapis.com/css?family=Holtwood+One+SC);
+
+
+#yearLabel {
+  font-size: 30px;
+  text-shadow: 3px 3px black;
+}
+
+
+#FIRLabel b {
+  font-size: 30px;
+  text-shadow: 3px 3px black;
+}
+
+#InfoLabel b {
+  font-size: 25px;
+  text-shadow: 2px 2px black;
+}
+
+.anuncio {
+  width: 100%;
+  height: auto;
+}
+
+.priceTag {
+  font-family: Tahoma, Geneva, sans-serif;
+  //color: #b42e23;
+  color: #ca1e1a;
+  font-weight: 900;
+  cursor: default;
+  line-height: normal;
+  //font-size: 40px;
+}
+
+.highlight {
+  //font-size: 60px;
+  font-family: Tahoma, Geneva, sans-serif;
+  color: #d0b112;
+  font-weight: 900;
+  text-shadow: 2px 2px black;
+  cursor: default;
+  line-height:normal;
+}
+
+.range {
+  background-color: red;
+  height:50px;
+  width: 50px;
+}
+
+#anuncios li {
+  position: relative;
+}
+
+.fixed{
+  width: 99%;
+  //background-color: white;
+  //text-align: center;
+  position: fixed;
+  z-index:999;
+  top: 50px;
+}
+
+.control-bar{
+  min-height:70px;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  vertical-align:middle;
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+** =============================================================================
+*/
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  background: #f6feeb url("imgs/efigie_bg.png") fixed no-repeat top right;
+}
+
+/*
+** Header
+*/
+
+.navbar-default {
+  color: #fff;
+  border: 0;
+  background: #218771;
+}
+
+.navbar-default a {
+  color: #fff !important;
+  text-shadow: none;
+}
+
+.navbar-default .navbar-brand {
+  font-family: 'Holtwood One SC', serif;
+}
+
+/*
+** Highlight box
+*/
+
+.jumbotron {
+  position: relative;
+
+  text-align: center;
+  border-radius: 0 !important;
+  background: transparent;
+}
+
+.jumbotron:after {
+  margin: 45px 0 0 -60px;
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 50px;
+}
+
+.jumbotron h1 {
+  margin: 40px auto;
+  width: 80%;
+  letter-spacing: 0.1em;
+  line-height: 1.5em;
+
+  color: #216787;
+  font-family: 'Holtwood One SC', serif;
+  font-size: 72px;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 5px 5px #f6feeb;
+}
+
+.jumbotron h1:after {
+  margin: 30px auto;
+  display: block;
+  content: "";
+  width: 40%;
+
+  border-top: 3px solid #216787;
+}
+
+.jumbotron p {
+  font-size: 28px;
+  font-weight: 400;
+  text-shadow: 2px 2px #f6feeb;
+}
+
+/*
+** Veja
+*/
+
+#Veja {
+  color: #216787;
+  font-family: 'Holtwood One SC', serif;
+  text-align: center;
+}
+
+#PlaceholderBegin .control-bar {
+  color: #fff;
+  background: #216787;
+}
+
+#PlaceholderBegin a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+#PlaceholderBegin a:hover {
+  text-decoration: none;
+}
+
+#yearSlider, #FIRSlider {
+  border-radius: 0;
+  border: 1px solid #fff;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#yearSlider .ui-slider-handle,
+#FIRSlider .ui-slider-handle {
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: #218771;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+}
+
+#yearSlider .ui-slider-handle:focus,
+#FIRSlider .ui-slider-handle:focus {
+  outline: none;
+}
+
+.ui-widget-header {
+  border-radius: 0;
+  background: #218771;
+}
+
+/*
+** Anúncios
+*/
+
+#anuncios-wrapper {
+  margin-top: -70px;
+  padding: 70px 0;
+  padding-right: 15px;
+  padding-left: 2px;
+  background: #216787;
+}
+
+#anuncios-wrapper .anuncio {
+  border: 3px solid #fff;
+}
+
+#anuncios-wrapper .page img {
+  width: 100%;
+  display: block;
+}
+
+.bx-controls-direction {
+  margin: -500px -60px 0 -60px;
+  padding-bottom: 400px;
+  position: relative;
+}
+
+.bx-controls-direction a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+
+  color: #fff;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  text-align: center;
+}
+
+.bx-controls-direction a:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bx-controls-direction a i {
+  padding-top: 8px;
+}
+
+.bx-controls-direction .bx-prev {
+  float: left;
+}
+
+.bx-controls-direction .bx-next {
+  float: right;
+}
+
+.bx-pager {
+  margin-top: 20px;
+
+  text-align: center;
+}
+
+.bx-pager .bx-pager-item {
+  margin-right: 10px;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+  text-indent: -500px;
+
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.bx-pager .bx-pager-item {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.bx-pager .bx-pager-item a {
+  display: block;
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+  text-indent: -500px;
+
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.bx-pager .bx-pager-item a:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.bx-pager .bx-pager-item a.active,
+.bx-pager .bx-pager-item a.active:hover {
+  background: #fff;
+}
+
+/*
+** Info
+*/
+
+.info {
+  background: #fff;
+}
+
+.info h1 {
+  margin: 40px 0 60px 0;
+
+  color: #216787;
+  font-size: 62px;
+  font-family: 'Holtwood One SC', serif;
+  text-align: center;
+}
+
+.info h3 {
+  margin: 20px 0;
+
+  color: #218771;
+  font-size: 22px;
+  font-family: 'Holtwood One SC', serif;
+}
+
+.info p {
+  font-size: 16px;
+}
+
+/*
+** Footer
+*/
+
+footer {
+  padding: 40px 0;
+  background: #216787;
+
+  color: #fff;
+}
+
+footer a {
+  color: #fff;
+  font-weight: 800;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+footer .col-md-6 {
+  padding: 0;
+}
+
+footer .col-md-6:last-child {
+  padding-left: 20px;
+  
+  border-left: 2px solid #fff;
+}
+
+footer h2, footer h3 {
+  margin-bottom: 40px;
+
+  font-family: 'Holtwood One SC', serif;
+}
+
+.social-links li {
+  margin-right: 5px;
+  display: inline-block;
+
+  list-style: none;
+}
+
+.social-links li a {
+  padding: 10px 15px;
+  display: block;
+
+
+  color: #fff;
+  border-radius: 5px;
+  border: 2px solid #fff;
+  background: red;
+}
+
+.social-links .facebook a {
+  background: #3B5998;
+}
+
+.social-links .twitter a {
+  background: #4099FF;
+}
+
+.social-links .youtube a {
+  background: #e52d27;
+}
+
+.social-links a i {
+  margin-right: 10px;
+  font-size: 22px;
+}
+
+/*
+** Nav share
+*/
+
+.nav-share {
+  margin-left: 15px;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.nav-share strong {
+  padding: 15px;
+  display: block;
+
+  text-transform: uppercase;
+}
+
+.nav-share a {
+  width: 56px;
+
+  text-align: center;
+}
+
+.nav-share i {
+  font-size: 16px;
+}
+
+.nav-share .facebook a {
+  background: #3B5998;
+}
+
+.nav-share .twitter a {
+  background: #4099FF;
+}
+
+.nav-share .googleplus a {
+  background: #e52d27;
+}
+
+.nav-share a:hover {
+  box-shadow: inset 0 0 0 2px #fff;
+}
