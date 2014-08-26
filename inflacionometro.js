@@ -91,10 +91,13 @@ for (i=1994; i<=2050; i++) {
     2300];*/
 
 var initialYear = availableYears[0];
-var selectedYear = 0;
-var selectedFIR = 5;
+var defaultYear = 0;
+var defaultFIR = 5;
+var selectedYear = defaultYear;
+var selectedFIR = defaultFIR;
 var fatorCorr94 = 1.269850588;
-
+var userInteractedYear = false;
+var userInteractedRate = false;
 //IPCA Alimentos e Bebidas de acordo com
 //http://www.ibge.gov.br/home/estatistica/indicadores/precos/inpc_ipca/ipca-inpc_201405_3.shtm
 var inflationHistory = [
@@ -393,7 +396,26 @@ function getPresident() {
 }
 
 function update() {
+  var showPrices = true;
+  //Changing the state when the user interacts
+  if (selectedYear != defaultYear && !userInteractedYear)
+    userInteractedYear = true;
 
+  if (selectedFIR != defaultFIR && !userInteractedRate)
+    userInteractedRate = true;
+
+  //Changing the overlay
+  if (!userInteractedYear) {
+    showPrices = false;
+    $(".anuncio").attr("src", "imgs/year_overlay.png");
+  } else 
+    if (!userInteractedRate && selectedYear > inflationHistory.length) {
+      showPrices = false;
+      $(".anuncio").attr("src", "imgs/rate_overlay.png");
+    }
+    else
+      $(".anuncio").attr("src", "imgs/void.png");
+  
   year = availableYears[selectedYear];
   var totalInfl = calcTotalInfl(year);
   FIR = availableFIRs[selectedFIR];
@@ -436,7 +458,8 @@ function update() {
       var currentPrice = item.price*totalInfl/fatorCorr94;
       newLabelHtml ="<span class='"+highlight+"' style='position: absolute; top: "+y+"%; left: "+x+"%;' title='R$ "+toFixed2(currentPrice)+"'>"+numberEyeCandy(currentPrice)+"</span>";
       //alert(newLabelHtml);
-      pageDiv.append(newLabelHtml);
+      if (showPrices)
+        pageDiv.append(newLabelHtml);
     }
   }
 
