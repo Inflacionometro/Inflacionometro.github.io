@@ -462,3 +462,7 @@ footer h2, footer h3 {
 .nav-share a:hover {
   box-shadow: inset 0 0 0 2px #fff;
 }
+
+#preload-01 { background: url(imgs/year_overlay.png) no-repeat -9999px -9999px;  top: -1000px; left:-1000px; position: absolute;}
+#preload-02 { background: url(imgs/void.png) no-repeat -9999px -9999px;  top: -1000px; left:-1000px; position: absolute;}
+#preload-03 { background: url(imgs/rate_overlay.png) no-repeat -9999px -9999px;  top: -1000px; left:-1000px; position: absolute;}
