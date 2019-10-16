@@ -119,13 +119,12 @@ var inflationHistory = [
   1.1039, //2010
   1.0718, //2011
   1.0986, //2012
-  1.0848  //2013
-  1.0803  //2014
-  1.1203  //2015
-  1.0862  //2016
-  0.9813  //2017
-  1.0404  //2018
-
+  1.0848, //2013
+  1.0803, //2014
+  1.1203, //2015
+  1.0862, //2016
+  0.9813, //2017
+  1.0404, //2018
 ]
 
 var pages = [
@@ -396,9 +395,9 @@ function getPresident() {
     return "Presidente FHC (PSDB)";
   } else if (year <= 2010) {
     return "Presidente Lula (PT)";
-    } else if (year <= 2017) {
+    } else if (year <= 2016) {
     return "Presidente Dilma (PT)";
-    } else if (year <= 2019) {
+    } else if (year <= 2018) {
     return "Presidente Temer (PMDB)";
   } else {
     return "Presidente Bolsonaro (PSL)";
